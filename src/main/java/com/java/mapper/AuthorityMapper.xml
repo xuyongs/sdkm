@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.java.mapper.AuthorityMapper">
+
+
+    <resultMap id="oneMenuMap" type="com.java.pojo.admin.OneMenu">
+        <result property="oneId" javaType="Long" column="oneId"></result>
+        <result property="noeName" javaType="String" column="oneName"></result>
+        <collection property="twoMenuList" ofType="com.java.pojo.admin.TwoMenu">
+            <result property="twoId" javaType="Long" column="twoId"></result>
+            <result property="twoName" javaType="String" column="twoName"></result>
+            <result property="parentId" javaType="Long" column="parentId"></result>
+        </collection>
+    </resultMap>
+
+
+    <!--<insert id="insertRoleAuthorityRelation">
+        INSERT INTO system_role_authority VALUES
+
+        <foreach collection="authorityAttr" item="temp" separator=",">
+            (NULL,#{roleId},'#{temp}')
+        </foreach>
+    </insert>-->
+
+    <insert id="insertRoleAuthorityRelation">
+        INSERT INTO system_role_authority VALUES
+        <foreach collection="authorityAttr" item="temp" separator=",">
+            (NULL,#{roleId},#{temp})
+        </foreach>
+    </insert>
+
+
+
+    <!--<select id="selectPTAuthority" resultMap="oneMenuMap">
+        select * from view_onemenu vo inner join view_twomenu vt on vo.oneId=vt.parentId;
+    </select>-->
+
+    <!--获取所有的一级权限-->
+    <select id="selectPTAuthority" resultMap="oneMenuMap">
+        select * from view_onemenu vo inner join view_twomenu vt on vo.oneId=vt.parentId
+    </select>
+
+
+
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
